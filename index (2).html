@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>eggframe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── HEADER ─────────────────────────────────────────────── -->
+  <header class="app-header">
+    <div class="logo">
+      <span class="logo-egg">🥚</span>
+      <span class="logo-text">eggframe</span>
+    </div>
+    <div class="header-actions">
+      <button id="btn-save" class="btn btn-secondary">임시저장</button>
+      <button id="btn-export" class="btn btn-primary">PNG 저장</button>
+    </div>
+  </header>
+
+  <!-- ── GALLERY BAR (상단 저장본) ─────────────────────────── -->
+  <section class="gallery-bar" id="gallery-bar">
+    <div class="gallery-bar-inner" id="gallery-list">
+      <div class="gallery-empty">저장된 편집본이 없습니다</div>
+    </div>
+  </section>
+
+  <!-- ── MAIN WORKSPACE ────────────────────────────────────── -->
+  <main class="workspace">
+
+    <!-- LEFT: 원본 사진 패널 -->
+    <aside class="panel panel-photos" id="panel-photos">
+      <div class="panel-header">
+        <span class="panel-title">사진</span>
+        <label class="btn btn-ghost btn-sm" for="file-input">+ 추가</label>
+        <input type="file" id="file-input" accept="image/*" multiple hidden />
+      </div>
+
+      <!-- 드래그 앤 드롭 업로드 존 -->
+      <div class="drop-zone" id="drop-zone">
+        <div class="drop-zone-hint">
+          <span class="drop-icon">🖼️</span>
+          <p>사진을 드래그하거나<br>클릭해서 추가</p>
+        </div>
+      </div>
+
+      <!-- 썸네일 그리드 -->
+      <div class="photo-grid" id="photo-grid"></div>
+    </aside>
+
+    <!-- CENTER: 캔버스 편집기 -->
+    <section class="canvas-area" id="canvas-area">
+
+      <!-- 레이아웃/옵션 툴바 -->
+      <div class="canvas-toolbar">
+        <div class="toolbar-group">
+          <span class="toolbar-label">레이아웃</span>
+          <div class="layout-picker" id="layout-picker">
+            <!-- JS로 생성 -->
+          </div>
+        </div>
+        <div class="toolbar-group">
+          <span class="toolbar-label">비율</span>
+          <select id="ratio-select" class="select-sm">
+            <option value="1:1">1:1</option>
+            <option value="4:5">4:5</option>
+            <option value="16:9">16:9</option>
+            <option value="9:16">9:16</option>
+          </select>
+        </div>
+        <div class="toolbar-group">
+          <span class="toolbar-label">여백</span>
+          <input type="range" id="gap-slider" min="0" max="40" value="8" class="slider-sm" />
+          <span id="gap-value" class="mono">8px</span>
+        </div>
+        <div class="toolbar-group">
+          <span class="toolbar-label">배경</span>
+          <input type="color" id="bg-color" value="#F5F4F0" class="color-picker" />
+        </div>
+      </div>
+
+      <!-- 캔버스 래퍼 -->
+      <div class="canvas-wrapper" id="canvas-wrapper">
+        <div class="canvas-frame" id="canvas-frame">
+          <!-- 슬롯은 JS로 생성 -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── LIGHTBOX ───────────────────────────────────────────── -->
+  <div class="lightbox" id="lightbox" hidden>
+    <div class="lightbox-backdrop" id="lb-backdrop"></div>
+    <div class="lightbox-ui">
+      <div class="lb-toolbar">
+        <span class="lb-counter" id="lb-counter">1 / 1</span>
+        <div class="lb-toolbar-right">
+          <input type="range" id="lb-zoom" min="50" max="300" value="100" class="slider-sm" />
+          <button id="lb-download" class="btn-icon" title="다운로드">⬇️</button>
+          <button id="lb-heart" class="btn-icon" title="즐겨찾기">🤍</button>
+          <button id="lb-delete" class="btn-icon" title="삭제">🗑️</button>
+          <button id="lb-close" class="btn-icon" title="닫기">✕</button>
+        </div>
+      </div>
+      <div class="lb-viewer" id="lb-viewer">
+        <button class="lb-nav lb-prev" id="lb-prev">‹</button>
+        <div class="lb-image-wrap" id="lb-image-wrap">
+          <img id="lb-img" src="" alt="" />
+        </div>
+        <button class="lb-nav lb-next" id="lb-next">›</button>
+      </div>
+      <div class="lb-filmstrip" id="lb-filmstrip"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
